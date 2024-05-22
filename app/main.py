@@ -2,7 +2,6 @@ from app.database import lifespan, SessionLocal
 from app.routers.limiter import limiter
 from app.routers.products import products_router
 from app.routers.suppliers import suppliers_router
-from app.routers.email import email_router
 
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
@@ -16,7 +15,6 @@ origins = [
 app = FastAPI(lifespan=lifespan)
 app.include_router(suppliers_router)
 app.include_router(products_router)
-app.include_router(email_router)
 
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
